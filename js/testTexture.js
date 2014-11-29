@@ -224,6 +224,75 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal) {
   points.push(vertices[v2]);
 }
 
+var SHADING_MODE = Object.freeze({
+    FLAT: 0,
+    GOURAUD: 1,
+    PHONG: 2
+});
+
+function sphere(depth, vertices, normals, mode) {
+  var va = vec4(0.0, 0.0, -1.0, 1.0);
+  var vb = vec4(0.0, 0.942809, 0.333333, 1);
+  var vc = vec4(-0.816497, -0.471405, 0.333333, 1);
+  var vd = vec4(0.816497, -0.471405, 0.333333, 1);
+  tetra(va, vb, vc, vd, depth, vertices, normals, mode);
+}
+
+function tetra(a, b, c, d, n, vertices, normals, mode) {
+  divideTriangle(a, b, c, n, vertices, normals, mode);
+  divideTriangle(a, c, d, n, vertices, normals, mode);
+  divideTriangle(a, b, d, n, vertices, normals, mode);
+  divideTriangle(b, c, d, n, vertices, normals, mode);
+}
+
+function divideTriangle(a, b, c, n, vertices, normals, mode) {
+  if (n < 0) {
+    throw "divideTriangle(): wrong argument.";
+  } else if (n == 0) {
+    triangle(a, b, c, vertices, normals, mode);
+  } else {
+
+    // We push the bisector to the unit sphere by normalize it.
+    var ab = normalize(mix(a, b, 0.5), true);
+    var ac = normalize(mix(a, c, 0.5), true);
+    var bc = normalize(mix(b, c, 0.5), true);
+
+    divideTriangle(a, ab, ac, n - 1, vertices);
+    divideTriangle(ab, b, bc, n - 1, vertices);
+    divideTriangle(ac, bc, c, n - 1, vertices);
+    divideTriangle(ab, bc, ac, n - 1, vertices);
+  }
+}
+
+function triangle(a, b, c, vertices, normals, mode) {
+  vertices.push(a);
+  vertices.push(b);
+  vertices.push(c);
+
+  if (mode == SHADING_MODE.FLAT) {
+    var ab = subtract(b, a);
+    var ac = subtract(b, c);
+    var normal = cross(ab, ac);
+    normal.push(0.0); // Making it homogeneous.
+    normalize(normal, true);
+
+    normals.push(normal);
+    normals.push(normal);
+    normals.push(normal);
+  } else {
+    var na = normalize(a, true);
+    var nb = normalize(b, true);
+    var nc = normalize(c, true);
+
+    na[3] = 0;
+    nb[3] = 0;
+    nc[3] = 0;
+
+    normals.push(na);
+    normals.push(nb);
+    normals.push(nc);
+  }
+}
 
 function render() {
   gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
