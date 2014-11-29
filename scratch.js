@@ -1,3 +1,8 @@
+
+// Git Basics:
+// http://teamtreehouse.com/library/git-basics.rss?feed_token=57f8983b-faf1-4982-acf1-0c661da7a227&hd=true
+
+
 var confirmButton;
 var Timer;
 
