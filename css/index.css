@@ -1,0 +1,42 @@
+.title {
+  text-align: center;
+}
+
+.group {
+  background: lightblue;
+}
+
+.wrapper {
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.col {
+  display: inline-block;
+  margin: 16px 16px;
+  vertical-align: middle;
+}
+
+.canvas {
+  background: white;
+  width: 512px;
+  height: 512px;
+}
+
+/*#rp-button {
+  background: black;
+  color: white;
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#rp-button:hover {
+  background: blue;
+  color: white;
+  cursor: pointer;
+}*/
+
+#instruction-header {
+  text-align: center;
+}
