@@ -43,19 +43,19 @@ uniform vec3 lightPosition;
 varying vec3 fL, fE, fH, fN;
 varying vec2 fUV;
 
-void main() 
+void main()
 {
     vec3 pos = (mvMatrix * vec4(vPosition, 1.0)).xyz;
     //light position in camera space
 
-    fL = normalize(lightPosition - pos); 
+    fL = normalize(lightPosition - pos);
     fE = normalize(-pos);
     fH = normalize(fL + fE);
-    fN = normalize(mvMatrix * vec4(vNormal, 0.0)).xyz; 
+    fN = normalize(mvMatrix * vec4(vNormal, 0.0)).xyz;
 
-    fUV = vUV; 
+    fUV = vUV;
     gl_Position = pMatrix * vec4(pos, 1.0);
-} 
+}
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
@@ -69,7 +69,7 @@ uniform sampler2D uSampler;
 uniform float shininess;
 void main()
 {
-    vec4 texColor = texture2D(uSampler, fUV); 
+    vec4 texColor = texture2D(uSampler, fUV);
     vec4 ambient = 0.3 * texColor;
     float kd = abs(dot(fL, fN));
     vec4 diffuse = kd * 0.6 * texColor;
@@ -78,7 +78,7 @@ void main()
     vec4 specular = 0.3 * ks * vec4(1.0, 1.0, 1.0, 1.0);
 
     vec4 fColor = ambient + diffuse + specular;
-    fColor.a  = 1.0;
+    fColor.a = 1.0;
 
     gl_FragColor = fColor;
 }
