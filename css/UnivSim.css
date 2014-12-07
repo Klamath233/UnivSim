@@ -1,0 +1,12 @@
+.wrapper {
+}
+
+#canvas {
+  display: inline-block;
+}
+
+#gui {
+  vertical-align: top;
+  display: inline-block;
+}
+

@@ -33,8 +33,7 @@ function init() {
       accleration: vec3
       mass: number
       radius: number
-      texture: image
-      shininess: number
+      Ass: number
       rotation: mat4
       axis: vec3
       light: boolean

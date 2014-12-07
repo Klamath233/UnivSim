@@ -170,6 +170,7 @@ Timer = function() {
   this.prevTime = 0;//the previously recorded time
   this.nowTime = 0;//current time
   this.reset();
+  this.isPaused = false;
 };
 
 
@@ -199,8 +200,18 @@ Timer.prototype.getNowTime = function() {
  * @return {number} dt
  */
 Timer.prototype.getElapsedTime = function() {
+  if (this.isPaused) return 0;
   var dt = this.getNowTime() - this.prevTime;
   this.prevTime += dt;
   return dt;
+};
+
+Timer.prototype.pause = function() {
+  this.isPaused = true;
+};
+
+Timer.prototype.unpause = function() {
+  this.isPaused = false;
+  this.reset();
 };
 

@@ -64,7 +64,7 @@ window.onload = function init() {
 function tick() {
 
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  dt = timer.getElapsedTime() / 1000;
+  dt = timer.getElapsedTime() / 1000.0;
 
   sphere1.x[0] += sphere1.v[0] * dt;
   sphere1.x[1] += sphere1.v[1] * dt;
@@ -163,13 +163,13 @@ function initObjects() {
   sphere1.r = 3.0;
   sphere1.x = vec3(-50.0, 0.0, 0.0);
   sphere1.v = vec3(10.0, 0.0, 0.0);
-  sphere1.a = vec3(0.0, 0.0, 0.0);
+  sphere1.a = vec3(1.0, 0.0, 0.0);
 
   sphere2.m = 1.0;
   sphere2.r = 1.0;
   sphere2.x = vec3(50.0, 1.0, 0);
   sphere2.v = vec3(-10.0, 0.0, 0.0);
-  sphere2.a = vec3(0.0, 0.0, 0.0);
+  sphere2.a = vec3(-1.0, 0.0, 0.0);
 }
 
 function initModels() {
