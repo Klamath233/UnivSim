@@ -369,11 +369,11 @@ UnivSimTest.fillStarsWithExample = function(arr) {
   star1.position = new vec3(1.0, 1.0, 0.0);
   star1.velocity = new vec3(-0.1, -0.1, 0.0);
   star1.acceleration = new vec3(0.0, 0.0, 0.0);
-  star1.mass = 1.0;
+  star1.mass = 10.0;
   star1.radius = 0.2;
   star1.texture = 1;
   star1.theta = 0.0;
-  star1.omega = 5.0;
+  star1.omega = 40.0;
   star1.shininess = 50;
   star1.axis = new vec3(-1.0, 1.0, 0.0);
   star1.isLightSource = true;
@@ -413,7 +413,7 @@ UnivSimTest.fillStarsWithExample = function(arr) {
   star4.acceleration = new vec3(0.0, 0.0, 0.0);
   star4.mass = 1.0;
   star4.radius = 0.2;
-  star4.texture = 4;
+  star4.texture = 15;
   star4.theta = 0.0;
   star4.omega = 5.0;
   star4.shininess = 50;
@@ -526,6 +526,19 @@ UnivSim.loadTexture = function() {
   UnivSim.loadTextureHelper('res/img/mercurymap.jpg');
   UnivSim.loadTextureHelper('res/img/venusmap.jpg');
   UnivSim.loadTextureHelper('res/img/earthmap.jpg');
+  UnivSim.loadTextureHelper('res/img/jupitermap.jpg');
+  UnivSim.loadTextureHelper('res/img/marsmap.jpg');
+  UnivSim.loadTextureHelper('res/img/neptunemap.jpg');
+  UnivSim.loadTextureHelper('res/img/plutomap.jpg');
+  UnivSim.loadTextureHelper('res/img/saturnmap.jpg');
+  UnivSim.loadTextureHelper('res/img/uranusmap.jpg');
+  UnivSim.loadTextureHelper('res/img/venusmap.jpg');
+  UnivSim.loadTextureHelper('res/img/vort.png');
+  UnivSim.loadTextureHelper('res/img/dirtysnowtexture.png');
+  UnivSim.loadTextureHelper('res/img/papertexture.jpg');
+  UnivSim.loadTextureHelper('res/img/walltexture.jpg');
+  UnivSim.loadTextureHelper('res/img/metal.jpg');
+
 };
 
 UnivSim.loadTextureHelper = function(name) {
