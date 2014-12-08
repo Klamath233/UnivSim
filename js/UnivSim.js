@@ -31,7 +31,7 @@ UnivSim.init = function() {
   confirmButton.addEventListener('click', function(e) {
     var x0, x1, x2, v0, v1, v2, a0, a1, a2, m, r;
 
-    if (document.getElementById('x0i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('x0i').value))) {
       if (UnivSim.pickedStar == null) {
         x0 = Math.random() * 20 - 10;
       } else {
@@ -41,7 +41,7 @@ UnivSim.init = function() {
       x0 = parseFloat(document.getElementById('x0i').value);
     }
 
-    if (document.getElementById('x1i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('x1i').value))) {
       if (UnivSim.pickedStar == null) {
         x1 = Math.random() * 20 - 10;
       } else {
@@ -51,7 +51,7 @@ UnivSim.init = function() {
       x1 = parseFloat(document.getElementById('x1i').value);
     }
 
-    if (document.getElementById('x2i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('x2i').value))) {
       if (UnivSim.pickedStar == null) {
         x2 = Math.random() * 20 - 10;
       } else {
@@ -61,7 +61,7 @@ UnivSim.init = function() {
       x2 = parseFloat(document.getElementById('x2i').value);
     }
 
-    if (document.getElementById('v0i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('v0i').value))) {
       if (UnivSim.pickedStar == null) {
         v0 = 0;
       } else {
@@ -71,7 +71,7 @@ UnivSim.init = function() {
       v0 = parseFloat(document.getElementById('v0i').value);
     }
 
-    if (document.getElementById('v1i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('v1i').value))) {
       if (UnivSim.pickedStar == null) {
         v1 = 0;
       } else {
@@ -81,7 +81,7 @@ UnivSim.init = function() {
       v1 = parseFloat(document.getElementById('v1i').value);
     }
 
-    if (document.getElementById('v2i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('v2i').value))) {
       if (UnivSim.pickedStar == null) {
         v2 = 0;
       } else {
@@ -91,7 +91,7 @@ UnivSim.init = function() {
       v2 = parseFloat(document.getElementById('v2i').value);
     }
 
-    if (document.getElementById('a0i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('a0i').value))) {
       if (UnivSim.pickedStar == null) {
         a0 = 0;
       } else {
@@ -101,7 +101,7 @@ UnivSim.init = function() {
       a0 = parseFloat(document.getElementById('a0i').value);
     }
 
-    if (document.getElementById('a1i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('a1i').value))) {
       if (UnivSim.pickedStar == null) {
         a1 = 0;
       } else {
@@ -111,7 +111,7 @@ UnivSim.init = function() {
       a1 = parseFloat(document.getElementById('a1i').value);
     }
 
-    if (document.getElementById('a2i').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('a2i').value))) {
       if (UnivSim.pickedStar == null) {
         a2 = 0;
       } else {
@@ -121,7 +121,7 @@ UnivSim.init = function() {
       a2 = parseFloat(document.getElementById('a2i').value);
     }
 
-    if (document.getElementById('mi').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('mi').value))) {
       if (UnivSim.pickedStar == null) {
         m = Math.random() * 100;
       } else {
@@ -131,7 +131,7 @@ UnivSim.init = function() {
       m = parseFloat(document.getElementById('mi').value);
     }
 
-    if (document.getElementById('ri').value.length <= 1) {
+    if (isNaN(parseFloat(document.getElementById('ri').value))) {
       if (UnivSim.pickedStar == null) {
         r = Math.random() * 5;
       } else {
