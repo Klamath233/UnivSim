@@ -29,81 +29,116 @@ UnivSim.init = function() {
   UnivSim.pickedStar = null;
   var confirmButton = document.getElementById('cfm');
   confirmButton.addEventListener('click', function(e) {
-    var x0 = document.getElementById('x0i').value.length == 0 ?
-             parseFloat(document.getElementById('x0l').innerHTML) :
-             parseFloat(document.getElementById('x0i').value);
-    if (isNaN(x0)) {
-      x0 = Math.random() * 20 - 10;
+    var x0, x1, x2, v0, v1, v2, a0, a1, a2, m, r;
+
+    if (document.getElementById('x0i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        x0 = Math.random() * 20 - 10;
+      } else {
+        x0 = pickedStar.position[0];
+      }
+    } else {
+      x0 = parseFloat(document.getElementById('x0i').value);
     }
 
-    var x1 = document.getElementById('x1i').value.length == 0 ?
-             parseFloat(document.getElementById('x1l').innerHTML) :
-             parseFloat(document.getElementById('x1i').value);
-    if (isNaN(x1)) {
-      x1 = Math.random() * 20 - 10;
+    if (document.getElementById('x1i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        x1 = Math.random() * 20 - 10;
+      } else {
+        x1 = pickedStar.position[1];
+      }
+    } else {
+      x1 = parseFloat(document.getElementById('x1i').value);
     }
 
-    var x2 = document.getElementById('x2i').value.length == 0 ?
-             parseFloat(document.getElementById('x2l').innerHTML) :
-             parseFloat(document.getElementById('x2i').value);
-    if (isNaN(x2)) {
-      x2 = Math.random() * 20 - 10;
+    if (document.getElementById('x2i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        x2 = Math.random() * 20 - 10;
+      } else {
+        x2 = pickedStar.position[2];
+      }
+    } else {
+      x2 = parseFloat(document.getElementById('x2i').value);
     }
 
-    var v0 = document.getElementById('v0i').value.length == 0 ?
-             parseFloat(document.getElementById('v0l').innerHTML) :
-             parseFloat(document.getElementById('v0i').value);
-    if (isNaN(v0)) {
-      v0 = 0;
+    if (document.getElementById('v0i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        v0 = 0;
+      } else {
+        v0 = pickedStar.velocity[0];
+      }
+    } else {
+      v0 = parseFloat(document.getElementById('v0i').value);
     }
 
-    var v1 = document.getElementById('v1i').value.length == 0 ?
-             parseFloat(document.getElementById('v1l').innerHTML) :
-             parseFloat(document.getElementById('v1i').value);
-    if (isNaN(v1)) {
-      v1 = 0;
+    if (document.getElementById('v1i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        v1 = 0;
+      } else {
+        v1 = pickedStar.velocity[1];
+      }
+    } else {
+      v1 = parseFloat(document.getElementById('v1i').value);
     }
 
-    var v2 = document.getElementById('v2i').value.length == 0 ?
-             parseFloat(document.getElementById('v2l').innerHTML) :
-             parseFloat(document.getElementById('v2i').value);
-    if (isNaN(v2)) {
-      v2 = 0;
+    if (document.getElementById('v2i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        v2 = 0;
+      } else {
+        v2 = pickedStar.velocity[2];
+      }
+    } else {
+      v2 = parseFloat(document.getElementById('v2i').value);
     }
 
-    var a0 = document.getElementById('a0i').value.length == 0 ?
-             parseFloat(document.getElementById('a0l').innerHTML) :
-             parseFloat(document.getElementById('a0i').value);
-    if (isNaN(a0)) {
-      a0 = 0;
+    if (document.getElementById('a0i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        a0 = 0;
+      } else {
+        a0 = pickedStar.acceleration[0];
+      }
+    } else {
+      a0 = parseFloat(document.getElementById('a0i').value);
     }
 
-    var a1 = document.getElementById('a1i').value.length == 0 ?
-             parseFloat(document.getElementById('a1l').innerHTML) :
-             parseFloat(document.getElementById('a1i').value);
-    if (isNaN(a1)) {
-      a1 = 0;
+    if (document.getElementById('a1i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        a1 = 0;
+      } else {
+        a1 = pickedStar.acceleration[1];
+      }
+    } else {
+      a1 = parseFloat(document.getElementById('a1i').value);
     }
 
-    var a2 = document.getElementById('a2i').value.length == 0 ?
-             parseFloat(document.getElementById('a2l').innerHTML) :
-             parseFloat(document.getElementById('a2i').value);
-    if (isNaN(a2)) {
-      a2 = 0;
+    if (document.getElementById('a2i').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        a2 = 0;
+      } else {
+        a2 = pickedStar.acceleration[2];
+      }
+    } else {
+      a2 = parseFloat(document.getElementById('a2i').value);
     }
 
-    var m = document.getElementById('mi').value.length == 0 ?
-             parseFloat(document.getElementById('ml').innerHTML) :
-             parseFloat(document.getElementById('mi').value);
-    if (isNaN(m)) {
-      m = Math.random() * 100;
+    if (document.getElementById('mi').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        m = Math.random() * 100;
+      } else {
+        m = pickedStar.mass;
+      }
+    } else {
+      m = parseFloat(document.getElementById('mi').value);
     }
 
-    var r = document.getElementById('ri').value.length == 0 ?
-             parseFloat(document.getElementById('rl').innerHTML) :
-             parseFloat(document.getElementById('ri').value);
-    if (isNaN(r)) {
-      r = Math.random() * 5;
+    if (document.getElementById('ri').value.length <= 1) {
+      if (UnivSim.pickedStar == null) {
+        r = Math.random() * 5;
+      } else {
+        r = pickedStar.radius;
+      }
+    } else {
+      r = parseFloat(document.getElementById('ri').value);
     }
 
     var x = new vec3(x0, x1, x2);
@@ -132,6 +167,7 @@ UnivSim.init = function() {
 
       UnivSim.stars.push(star);
       UnivSim.pickedStar = star;
+      document.getElementById('cfm').innerHTML = 'Confirm';
     } else {
       UnivSim.pickedStar.position = x;
       UnivSim.pickedStar.velocity = v;
@@ -203,6 +239,14 @@ UnivSim.init = function() {
       default:
     }
   }, false);
+
+  window.addEventListener('blur', function(e) {
+    UnivSim.timer.pause();
+  });
+
+  window.addEventListener('focus', function(e) {
+    UnivSim.timer.unpause();
+  });
 
   // Init WebGL programs.
   UnivSim.programs = new Object();
@@ -328,7 +372,7 @@ UnivSim.init = function() {
   UnivSim.camera.viewMatrix = lookAt(UnivSim.camera.eye,
                                      UnivSim.camera.at,
                                      UnivSim.camera.up);
-  UnivSim.camera.projectionMatrix = perspective(90, 1, 0.001, 1000);
+  UnivSim.camera.projectionMatrix = perspective(90, 1, 0.001, 10000);
 
   // Init timer;
   UnivSim.timer = new Timer();
@@ -355,7 +399,6 @@ UnivSim.init = function() {
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
   UnivSim.canvas.addEventListener('mousedown', UnivSim.pickingHandler);
 
-  console.log(UnivSim);
   UnivSim.tick();
 
 };
@@ -398,7 +441,13 @@ UnivSim.pickingHandler = function(event) {
   var y = canvas.height - event.clientY;
   var color = new Uint8Array(4);
   gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, color);
-  UnivSim.pickedStar = UnivSim.stars[Math.round(color[2]) - 1];
+  if (Math.round(color[2]) < 1) {
+    UnivSim.pickedStar = null;
+    document.getElementById('cfm').innerHTML = 'Add Star';
+  } else {
+    UnivSim.pickedStar = UnivSim.stars[Math.round(color[2]) - 1];
+    document.getElementById('cfm').innerHTML = 'Confirm';
+  }
   UnivSim.timer.unpause();
 };
 
@@ -410,78 +459,73 @@ UnivSim.tick = function() {
   // Update UI information.
   if (UnivSim.pickedStar) {
     document.getElementById('x0l').innerHTML =
-                                   UnivSim.pickedStar.position[0];
+                                   UnivSim.pickedStar.position[0].toFixed(3);
     document.getElementById('x1l').innerHTML =
-                                   UnivSim.pickedStar.position[1];
+                                   UnivSim.pickedStar.position[1].toFixed(3);
     document.getElementById('x2l').innerHTML =
-                                   UnivSim.pickedStar.position[2];
+                                   UnivSim.pickedStar.position[2].toFixed(3);
     document.getElementById('v0l').innerHTML =
-                                   UnivSim.pickedStar.velocity[0];
+                                   UnivSim.pickedStar.velocity[0].toFixed(3);
     document.getElementById('v1l').innerHTML =
-                                   UnivSim.pickedStar.velocity[1];
+                                   UnivSim.pickedStar.velocity[1].toFixed(3);
     document.getElementById('v2l').innerHTML =
-                                   UnivSim.pickedStar.velocity[2];
+                                   UnivSim.pickedStar.velocity[2].toFixed(3);
     document.getElementById('a0l').innerHTML =
-                                   UnivSim.pickedStar.acceleration[0];
+                                   UnivSim.pickedStar.acceleration[0]
+                                   .toFixed(3);
     document.getElementById('a1l').innerHTML =
-                                   UnivSim.pickedStar.acceleration[1];
+                                   UnivSim.pickedStar.acceleration[1]
+                                   .toFixed(3);
     document.getElementById('a2l').innerHTML =
-                                   UnivSim.pickedStar.acceleration[2];
+                                   UnivSim.pickedStar.acceleration[2]
+                                   .toFixed(3);
     document.getElementById('ml').innerHTML =
-                                   UnivSim.pickedStar.mass;
+                                   UnivSim.pickedStar.mass.toFixed(3);
     document.getElementById('rl').innerHTML =
-                                   UnivSim.pickedStar.radius;
+                                   UnivSim.pickedStar.radius.toFixed(3);
   } else {
-    document.getElementById('x0l').innerHTML = '';
-    document.getElementById('x1l').innerHTML = '';
-    document.getElementById('x2l').innerHTML = '';
-    document.getElementById('v0l').innerHTML = '';
-    document.getElementById('v1l').innerHTML = '';
-    document.getElementById('v2l').innerHTML = '';
-    document.getElementById('a0l').innerHTML = '';
-    document.getElementById('a1l').innerHTML = '';
-    document.getElementById('a2l').innerHTML = '';
-    document.getElementById('ml').innerHTML = '';
-    document.getElementById('rl').innerHTML = '';
+    document.getElementById('x0l').innerHTML = '&nbsp;';
+    document.getElementById('x1l').innerHTML = '&nbsp;';
+    document.getElementById('x2l').innerHTML = '&nbsp;';
+    document.getElementById('v0l').innerHTML = '&nbsp;';
+    document.getElementById('v1l').innerHTML = '&nbsp;';
+    document.getElementById('v2l').innerHTML = '&nbsp;';
+    document.getElementById('a0l').innerHTML = '&nbsp;';
+    document.getElementById('a1l').innerHTML = '&nbsp;';
+    document.getElementById('a2l').innerHTML = '&nbsp;';
+    document.getElementById('ml').innerHTML = '&nbsp;';
+    document.getElementById('rl').innerHTML = '&nbsp;';
   }
   // Update view matrix according to key pressed.
   if (UnivSim.keys.w == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(translate(0.0, 0.0, dt * 10),
                                      UnivSim.camera.viewMatrix);
   }
   if (UnivSim.keys.s == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(translate(0.0, 0.0, -dt * 10),
                                      UnivSim.camera.viewMatrix);
   }
   if (UnivSim.keys.a == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(translate(dt * 10, 0.0, 0.0),
                                      UnivSim.camera.viewMatrix);
   }
   if (UnivSim.keys.d == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(translate(-dt * 10, 0.0, 0.0),
                                      UnivSim.camera.viewMatrix);
   }
   if (UnivSim.keys.up == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(rotate(-dt * 30, [1, 0, 0]),
                                      UnivSim.camera.viewMatrix);
   }
   if (UnivSim.keys.down == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(rotate(dt * 30, [1, 0, 0]),
                                      UnivSim.camera.viewMatrix);
   }
   if (UnivSim.keys.left == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(rotate(-dt * 30, [0, 1, 0]),
                                      UnivSim.camera.viewMatrix);
   }
   if (UnivSim.keys.right == true) {
-    console.log('hello');
     UnivSim.camera.viewMatrix = mult(rotate(dt * 30, [0, 1, 0]),
                                      UnivSim.camera.viewMatrix);
   }
@@ -585,32 +629,7 @@ UnivSim.tick = function() {
     gl.useProgram(UnivSim.programs.rendering);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    // Draw background.
-    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgPositionBuffer);
-    gl.vertexAttribPointer(UnivSim.attributes.position,
-                           3,
-                           gl.FLOAT,
-                           false,
-                           0,
-                           0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgNormalBuffer);
-    gl.vertexAttribPointer(UnivSim.attributes.normal, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgUVBuffer);
-    gl.vertexAttribPointer(UnivSim.attributes.uv, 2, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, UnivSim.buffers.bgIndexBuffer);
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    gl.disable(gl.DEPTH_TEST);
-    gl.uniform1i(UnivSim.uniforms.isPicking, 0);
-    gl.uniform1i(UnivSim.uniforms.isBackground, 1);
-    gl.uniform1i(UnivSim.uniforms.sampler, 0);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, UnivSim.textures[0]);
-    gl.drawElements(gl.TRIANGLES,
-                    UnivSim.geometries.background.indices.length,
-                    gl.UNSIGNED_SHORT,
-                    0);
-
-    // Draw stars.
+    // Draw background then stars.
     gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.positionBuffer);
     gl.vertexAttribPointer(UnivSim.attributes.position,
                            3,
@@ -625,6 +644,35 @@ UnivSim.tick = function() {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, UnivSim.buffers.indexBuffer);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.enable(gl.DEPTH_TEST);
+
+    gl.uniform1i(UnivSim.uniforms.isPicking, 0);
+    gl.uniform3fv(UnivSim.uniforms.lightPosition,
+                  flatten(lightStar.position));
+    gl.uniform1f(UnivSim.uniforms.shininess,
+                  50);
+    gl.uniform1i(UnivSim.uniforms.sampler,
+                 0);
+    gl.uniform1i(UnivSim.uniforms.isBackground, 0);
+    gl.uniform1i(UnivSim.uniforms.isLight, 0);
+
+    var model = scaleMat(5000.0, 5000.0, 5000.0);
+    var view = UnivSim.camera.viewMatrix;
+    var projection = UnivSim.camera.projectionMatrix;
+    gl.uniformMatrix4fv(UnivSim.uniforms.mMatrix,
+                        false,
+                        flatten(model));
+    gl.uniformMatrix4fv(UnivSim.uniforms.vMatrix,
+                        false,
+                        flatten(view));
+    gl.uniformMatrix4fv(UnivSim.uniforms.pMatrix,
+                        false,
+                        flatten(projection));
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, UnivSim.textures[0]);
+    gl.drawElements(gl.TRIANGLES,
+                    UnivSim.geometries.sphere.indices.length,
+                    gl.UNSIGNED_SHORT,
+                    0);
     for (var i = 0; i < UnivSim.stars.length; i++) {
       var star = UnivSim.stars[i];
       gl.uniform1i(UnivSim.uniforms.isPicking, 0);
@@ -673,11 +721,11 @@ UnivSim.tick = function() {
 
 UnivSimTest.fillStarsWithExample = function(arr) {
   var star1 = new Object();
-  var star2 = new Object();
-  var star3 = new Object();
-  var star4 = new Object();
+  // var star2 = new Object();
+  // var star3 = new Object();
+  // var star4 = new Object();
 
-  star1.position = new vec3(1.0, 1.0, 0.0);
+  star1.position = new vec3(0.0, 0.0, 0.0);
   star1.velocity = new vec3(0.0, 0.0, 0.0);
   star1.acceleration = new vec3(0.0, 0.0, 0.0);
   star1.mass = 10000.0;
@@ -693,49 +741,49 @@ UnivSimTest.fillStarsWithExample = function(arr) {
   star1.lightSpecular = new vec4(1.0, 1.0, 1.0, 1.0);
   star1.pickingColor = new vec4(0.0, 0.0, 1 / 255.0, 1.0);
 
-  star2.position = new vec3(-1.0, 1.0, 0.0);
-  star2.velocity = new vec3(0.0, -0.0, 0.0);
-  star2.acceleration = new vec3(0.0, 0.0, 0.0);
-  star2.mass = 1.0;
-  star2.radius = 0.2;
-  star2.texture = 2;
-  star2.theta = 0.0;
-  star2.omega = 5.0;
-  star2.shininess = 50;
-  star2.axis = new vec3(0.0, 1.0, 0.0);
-  star2.isLightSource = false;
-  star2.pickingColor = new vec4(0.0, 0.0, 2 / 255.0, 1.0);
+  // star2.position = new vec3(-1.0, 1.0, 0.0);
+  // star2.velocity = new vec3(0.0, -0.0, 0.0);
+  // star2.acceleration = new vec3(0.0, 0.0, 0.0);
+  // star2.mass = 1.0;
+  // star2.radius = 0.2;
+  // star2.texture = 2;
+  // star2.theta = 0.0;
+  // star2.omega = 5.0;
+  // star2.shininess = 50;
+  // star2.axis = new vec3(0.0, 1.0, 0.0);
+  // star2.isLightSource = false;
+  // star2.pickingColor = new vec4(0.0, 0.0, 2 / 255.0, 1.0);
 
-  star3.position = new vec3(-1.0, -1.0, 0.0);
-  star3.velocity = new vec3(0.2, 0.1, 0.0);
-  star3.acceleration = new vec3(0.0, 0.0, 0.0);
-  star3.mass = 1.0;
-  star3.radius = 0.2;
-  star3.texture = 3;
-  star3.theta = 0.0;
-  star3.omega = 5.0;
-  star3.shininess = 50;
-  star3.axis = new vec3(0.0, 1.0, 0.0);
-  star3.isLightSource = false;
-  star3.pickingColor = new vec4(0.0, 0.0, 3 / 255.0, 1.0);
+  // star3.position = new vec3(-1.0, -1.0, 0.0);
+  // star3.velocity = new vec3(0.2, 0.1, 0.0);
+  // star3.acceleration = new vec3(0.0, 0.0, 0.0);
+  // star3.mass = 1.0;
+  // star3.radius = 0.2;
+  // star3.texture = 3;
+  // star3.theta = 0.0;
+  // star3.omega = 5.0;
+  // star3.shininess = 50;
+  // star3.axis = new vec3(0.0, 1.0, 0.0);
+  // star3.isLightSource = false;
+  // star3.pickingColor = new vec4(0.0, 0.0, 3 / 255.0, 1.0);
 
-  star4.position = new vec3(1.0, -1.0, 0.0);
-  star4.velocity = new vec3(-0.1, 0.2, 0.0);
-  star4.acceleration = new vec3(0.0, 0.0, 0.0);
-  star4.mass = 1.0;
-  star4.radius = 0.2;
-  star4.texture = 15;
-  star4.theta = 0.0;
-  star4.omega = 5.0;
-  star4.shininess = 50;
-  star4.axis = new vec3(0.0, 1.0, 0.0);
-  star4.isLightSource = false;
-  star4.pickingColor = new vec4(0.0, 0.0, 4 / 255.0, 1.0);
+  // star4.position = new vec3(1.0, -1.0, 0.0);
+  // star4.velocity = new vec3(-0.1, 0.2, 0.0);
+  // star4.acceleration = new vec3(0.0, 0.0, 0.0);
+  // star4.mass = 1.0;
+  // star4.radius = 0.2;
+  // star4.texture = 15;
+  // star4.theta = 0.0;
+  // star4.omega = 5.0;
+  // star4.shininess = 50;
+  // star4.axis = new vec3(0.0, 1.0, 0.0);
+  // star4.isLightSource = false;
+  // star4.pickingColor = new vec4(0.0, 0.0, 4 / 255.0, 1.0);
 
   arr.push(star1);
-  arr.push(star2);
-  arr.push(star3);
-  arr.push(star4);
+  // arr.push(star2);
+  // arr.push(star3);
+  // arr.push(star4);
 };
 
 
@@ -832,7 +880,7 @@ UnivSimTest.fillTexturesWithExample = function(arr) {
 };
 
 UnivSim.loadTexture = function() {
-  UnivSim.loadTextureHelper('res/img/pure-milky-way.jpg');
+  UnivSim.loadTextureHelper('res/img/stars.jpg');
   UnivSim.loadTextureHelper('res/img/sunmap.jpg');
   UnivSim.loadTextureHelper('res/img/mercurymap.jpg');
   UnivSim.loadTextureHelper('res/img/venusmap.jpg');
@@ -865,8 +913,8 @@ UnivSim.loadTextureHelper = function(name) {
                   gl.UNSIGNED_BYTE,
                   myTexture.image);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
     gl.generateMipmap(gl.TEXTURE_2D);
