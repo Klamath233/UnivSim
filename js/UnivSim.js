@@ -35,7 +35,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         x0 = Math.random() * 20 - 10;
       } else {
-        x0 = pickedStar.position[0];
+        x0 = UnivSim.pickedStar.position[0];
       }
     } else {
       x0 = parseFloat(document.getElementById('x0i').value);
@@ -45,7 +45,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         x1 = Math.random() * 20 - 10;
       } else {
-        x1 = pickedStar.position[1];
+        x1 = UnivSim.pickedStar.position[1];
       }
     } else {
       x1 = parseFloat(document.getElementById('x1i').value);
@@ -55,7 +55,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         x2 = Math.random() * 20 - 10;
       } else {
-        x2 = pickedStar.position[2];
+        x2 = UnivSim.pickedStar.position[2];
       }
     } else {
       x2 = parseFloat(document.getElementById('x2i').value);
@@ -65,7 +65,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         v0 = 0;
       } else {
-        v0 = pickedStar.velocity[0];
+        v0 = UnivSim.pickedStar.velocity[0];
       }
     } else {
       v0 = parseFloat(document.getElementById('v0i').value);
@@ -75,7 +75,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         v1 = 0;
       } else {
-        v1 = pickedStar.velocity[1];
+        v1 = UnivSim.pickedStar.velocity[1];
       }
     } else {
       v1 = parseFloat(document.getElementById('v1i').value);
@@ -85,7 +85,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         v2 = 0;
       } else {
-        v2 = pickedStar.velocity[2];
+        v2 = UnivSim.pickedStar.velocity[2];
       }
     } else {
       v2 = parseFloat(document.getElementById('v2i').value);
@@ -95,7 +95,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         a0 = 0;
       } else {
-        a0 = pickedStar.acceleration[0];
+        a0 = UnivSim.pickedStar.acceleration[0];
       }
     } else {
       a0 = parseFloat(document.getElementById('a0i').value);
@@ -105,7 +105,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         a1 = 0;
       } else {
-        a1 = pickedStar.acceleration[1];
+        a1 = UnivSim.pickedStar.acceleration[1];
       }
     } else {
       a1 = parseFloat(document.getElementById('a1i').value);
@@ -115,7 +115,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         a2 = 0;
       } else {
-        a2 = pickedStar.acceleration[2];
+        a2 = UnivSim.pickedStar.acceleration[2];
       }
     } else {
       a2 = parseFloat(document.getElementById('a2i').value);
@@ -125,7 +125,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         m = Math.random() * 100;
       } else {
-        m = pickedStar.mass;
+        m = UnivSim.pickedStar.mass;
       }
     } else {
       m = parseFloat(document.getElementById('mi').value);
@@ -135,7 +135,7 @@ UnivSim.init = function() {
       if (UnivSim.pickedStar == null) {
         r = Math.random() * 5;
       } else {
-        r = pickedStar.radius;
+        r = UnivSim.pickedStar.radius;
       }
     } else {
       r = parseFloat(document.getElementById('ri').value);
