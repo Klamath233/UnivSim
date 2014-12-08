@@ -14,6 +14,196 @@ UnivSim.init = function() {
     alert("WebGL isn't available");
   }
 
+  // Init navigation system.
+  UnivSim.keys = new Object();
+  UnivSim.keys.w = false; // 镜头前进
+  UnivSim.keys.s = false; // 镜头后退
+  UnivSim.keys.a = false; // 镜头左平移
+  UnivSim.keys.d = false; // 镜头右平移
+  UnivSim.keys.up = false; // 镜头上抬
+  UnivSim.keys.down = false; // 镜头下摆
+  UnivSim.keys.left = false; // 镜头左转
+  UnivSim.keys.right = false; // 镜头右转
+
+  // Init interaction system.
+  UnivSim.pickedStar = null;
+  var confirmButton = document.getElementById('cfm');
+  confirmButton.addEventListener('click', function(e) {
+    var x0 = document.getElementById('x0i').value.length == 0 ?
+             parseFloat(document.getElementById('x0l').innerHTML) :
+             parseFloat(document.getElementById('x0i').value);
+    if (isNaN(x0)) {
+      x0 = Math.random() * 20 - 10;
+    }
+
+    var x1 = document.getElementById('x1i').value.length == 0 ?
+             parseFloat(document.getElementById('x1l').innerHTML) :
+             parseFloat(document.getElementById('x1i').value);
+    if (isNaN(x1)) {
+      x1 = Math.random() * 20 - 10;
+    }
+
+    var x2 = document.getElementById('x2i').value.length == 0 ?
+             parseFloat(document.getElementById('x2l').innerHTML) :
+             parseFloat(document.getElementById('x2i').value);
+    if (isNaN(x2)) {
+      x2 = Math.random() * 20 - 10;
+    }
+
+    var v0 = document.getElementById('v0i').value.length == 0 ?
+             parseFloat(document.getElementById('v0l').innerHTML) :
+             parseFloat(document.getElementById('v0i').value);
+    if (isNaN(v0)) {
+      v0 = 0;
+    }
+
+    var v1 = document.getElementById('v1i').value.length == 0 ?
+             parseFloat(document.getElementById('v1l').innerHTML) :
+             parseFloat(document.getElementById('v1i').value);
+    if (isNaN(v1)) {
+      v1 = 0;
+    }
+
+    var v2 = document.getElementById('v2i').value.length == 0 ?
+             parseFloat(document.getElementById('v2l').innerHTML) :
+             parseFloat(document.getElementById('v2i').value);
+    if (isNaN(v2)) {
+      v2 = 0;
+    }
+
+    var a0 = document.getElementById('a0i').value.length == 0 ?
+             parseFloat(document.getElementById('a0l').innerHTML) :
+             parseFloat(document.getElementById('a0i').value);
+    if (isNaN(a0)) {
+      a0 = 0;
+    }
+
+    var a1 = document.getElementById('a1i').value.length == 0 ?
+             parseFloat(document.getElementById('a1l').innerHTML) :
+             parseFloat(document.getElementById('a1i').value);
+    if (isNaN(a1)) {
+      a1 = 0;
+    }
+
+    var a2 = document.getElementById('a2i').value.length == 0 ?
+             parseFloat(document.getElementById('a2l').innerHTML) :
+             parseFloat(document.getElementById('a2i').value);
+    if (isNaN(a2)) {
+      a2 = 0;
+    }
+
+    var m = document.getElementById('mi').value.length == 0 ?
+             parseFloat(document.getElementById('ml').innerHTML) :
+             parseFloat(document.getElementById('mi').value);
+    if (isNaN(m)) {
+      m = Math.random() * 100;
+    }
+
+    var r = document.getElementById('ri').value.length == 0 ?
+             parseFloat(document.getElementById('rl').innerHTML) :
+             parseFloat(document.getElementById('ri').value);
+    if (isNaN(r)) {
+      r = Math.random() * 5;
+    }
+
+    var x = new vec3(x0, x1, x2);
+    var v = new vec3(v0, v1, v2);
+    var a = new vec3(a0, a1, a2);
+
+    if (!UnivSim.pickedStar) {
+      var star = new Object();
+
+      star.position = x;
+      star.velocity = v;
+      star.acceleration = a;
+      star.mass = m == 0 ? Math.random() * 500 : m;
+      star.radius = r == 0 ? Math.random() * 20 : r;
+      star.texture = Math.round(Math.random() * (UnivSim.textures.length - 2));
+      star.theta = 0.0;
+      star.omega = Math.random() * 100;
+      star.shininess = Math.random() * 500;
+      star.axis = new vec3(Math.random() * 2 - 1,
+                           Math.random() * 2 - 1,
+                           Math.random() * 2 - 1);
+      star.isLightSource = false;
+      star.pickingColor = new vec4(0.0, 0.0,
+                                   (UnivSim.stars.length + 1) / 255.0,
+                                   1.0);
+
+      UnivSim.stars.push(star);
+      UnivSim.pickedStar = star;
+    } else {
+      UnivSim.pickedStar.position = x;
+      UnivSim.pickedStar.velocity = v;
+      UnivSim.pickedStar.acceleration = a;
+      UnivSim.pickedStar.mass = m == 0 ? Math.random() * 500 : m;
+      UnivSim.pickedStar.radius = r == 0 ? Math.random() * 20 : r;
+    }
+
+
+  });
+
+  window.addEventListener('keydown', function(e) {
+
+    switch (e.keyCode) {
+      case 87:
+        UnivSim.keys.w = true; // set the related key to true.
+        break;
+      case 83:
+        UnivSim.keys.s = true; // set the related key to true.
+        break;
+      case 65:
+        UnivSim.keys.a = true; // set the related key to true.
+        break;
+      case 68:
+        UnivSim.keys.d = true; // set the related key to true.
+        break;
+      case 38:
+        UnivSim.keys.up = true; // set the related key to true.
+        break;
+      case 40:
+        UnivSim.keys.down = true; // set the related key to true.
+        break;
+      case 37:
+        UnivSim.keys.left = true; // set the related key to true.
+        break;
+      case 39:
+        UnivSim.keys.right = true; // set the related key to true.
+        break;
+      default:
+    }
+  }, false);
+
+  window.addEventListener('keyup', function(e) {
+    switch (e.keyCode) {
+      case 87:
+        UnivSim.keys.w = false;
+        break;
+      case 83:
+        UnivSim.keys.s = false; // set the related key to true.
+        break;
+      case 65:
+        UnivSim.keys.a = false; // set the related key to true.
+        break;
+      case 68:
+        UnivSim.keys.d = false; // set the related key to true.
+        break;
+      case 38:
+        UnivSim.keys.up = false; // set the related key to true.
+        break;
+      case 40:
+        UnivSim.keys.down = false; // set the related key to true.
+        break;
+      case 37:
+        UnivSim.keys.left = false; // set the related key to true.
+        break;
+      case 39:
+        UnivSim.keys.right = false; // set the related key to true.
+        break;
+      default:
+    }
+  }, false);
+
   // Init WebGL programs.
   UnivSim.programs = new Object();
   UnivSim.programs.rendering = initShaders(gl,
@@ -23,6 +213,8 @@ UnivSim.init = function() {
   // Init stars data.
   UnivSim.stars = new Array(); // array for storing stars.
   UnivSimTest.fillStarsWithExample(UnivSim.stars); // fill in test data.
+  // UnivSim.G = 0.00000000006673;
+  UnivSim.G = 0.0001;
 
   // Init geometries.
   UnivSim.geometries = new Object();
@@ -32,13 +224,9 @@ UnivSim.init = function() {
                                            [-1.0, 1.0, 0.0,
                                             -1.0, -1.0, 0.0,
                                             1.0, -1.0, 0.0,
-                                            -1.0, 1.0, 0.0,
-                                            1.0, -1.0, 0.0,
                                             1.0, 1.0, 0.0]);
   UnivSim.geometries.background.normals = new Float32Array(
                                             [0.0, 0.0, 1.0,
-                                             0.0, 0.0, 1.0,
-                                             0.0, 0.0, 1.0,
                                              0.0, 0.0, 1.0,
                                              0.0, 0.0, 1.0,
                                              0.0, 0.0, 1.0]);
@@ -46,9 +234,14 @@ UnivSim.init = function() {
                                               [0.0, 1.0,
                                                0.0, 0.0,
                                                1.0, 0.0,
-                                               0.0, 1.0,
-                                               1.0, 0.0,
                                                1.0, 1.0]);
+  UnivSim.geometries.background.indices = new Uint16Array(
+                                              [0,
+                                               1,
+                                               2,
+                                               0,
+                                               2,
+                                               3]);
 
 
   // Init texture data.
@@ -61,40 +254,42 @@ UnivSim.init = function() {
   UnivSim.buffers.normalBuffer = gl.createBuffer();
   UnivSim.buffers.uvBuffer = gl.createBuffer();
   UnivSim.buffers.indexBuffer = gl.createBuffer();
+  UnivSim.buffers.bgPositionBuffer = gl.createBuffer();
+  UnivSim.buffers.bgNormalBuffer = gl.createBuffer();
+  UnivSim.buffers.bgUVBuffer = gl.createBuffer();
+  UnivSim.buffers.bgIndexBuffer = gl.createBuffer();
 
   gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.positionBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.sphere.points.length * 4 +
-                                 72, gl.STATIC_DRAW);
-  gl.bufferSubData(gl.ARRAY_BUFFER,
-                   0,
-                   UnivSim.geometries.sphere.points);
-  gl.bufferSubData(gl.ARRAY_BUFFER,
-                   UnivSim.geometries.sphere.points.length * 4,
-                   UnivSim.geometries.background.points);
+  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.sphere.points,
+                gl.STATIC_DRAW);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.normalBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.sphere.normals.length * 4 +
-                                 72, gl.STATIC_DRAW);
-  gl.bufferSubData(gl.ARRAY_BUFFER,
-                   0,
-                   UnivSim.geometries.sphere.normals);
-  gl.bufferSubData(gl.ARRAY_BUFFER,
-                   UnivSim.geometries.sphere.normals.length * 4,
-                   UnivSim.geometries.background.normals);
+  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.sphere.normals,
+                gl.STATIC_DRAW);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.uvBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.sphere.texCoords.length *
-                                 4 + 48, gl.STATIC_DRAW);
-  gl.bufferSubData(gl.ARRAY_BUFFER,
-                   0,
-                   UnivSim.geometries.sphere.texCoords);
-  gl.bufferSubData(gl.ARRAY_BUFFER,
-                   UnivSim.geometries.sphere.texCoords.length * 4,
-                   UnivSim.geometries.background.texCoords);
-
+  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.sphere.texCoords,
+                gl.STATIC_DRAW);
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, UnivSim.buffers.indexBuffer);
   gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
                 UnivSim.geometries.sphere.indices,
+                gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgPositionBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.background.points,
+                gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgNormalBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.background.normals,
+                gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgUVBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, UnivSim.geometries.background.texCoords,
+                gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, UnivSim.buffers.bgIndexBuffer);
+
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
+                UnivSim.geometries.background.indices,
                 gl.STATIC_DRAW);
 
   // Init vertex attribute pointers.
@@ -108,17 +303,6 @@ UnivSim.init = function() {
   UnivSim.attributes.uv = gl.getAttribLocation(program, 'vUV');
   gl.enableVertexAttribArray(UnivSim.attributes.uv);
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.positionBuffer);
-  gl.vertexAttribPointer(UnivSim.attributes.position,
-                         3,
-                         gl.FLOAT,
-                         false,
-                         0,
-                         0);
-  gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.normalBuffer);
-  gl.vertexAttribPointer(UnivSim.attributes.normal, 3, gl.FLOAT, false, 0, 0);
-  gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.uvBuffer);
-  gl.vertexAttribPointer(UnivSim.attributes.uv, 2, gl.FLOAT, false, 0, 0);
 
   // Init uniforms pointers.
   UnivSim.uniforms = new Object();
@@ -133,7 +317,8 @@ UnivSim.init = function() {
   UnivSim.uniforms.isBackground = gl.getUniformLocation(program,
                                                         'isBackground');
   UnivSim.uniforms.isPicking = gl.getUniformLocation(program, 'isPicking');
-  UnivSim.uniforms.pickingColor = gl.getUniformLocation(program, 'pickingColor');
+  UnivSim.uniforms.pickingColor = gl.getUniformLocation(program,
+                                                        'pickingColor');
 
   // Init camera.
   UnivSim.camera = new Object();
@@ -213,7 +398,7 @@ UnivSim.pickingHandler = function(event) {
   var y = canvas.height - event.clientY;
   var color = new Uint8Array(4);
   gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, color);
-  alert(color[0] + ', ' + color[1] + ', ' + color[2]);
+  UnivSim.pickedStar = UnivSim.stars[Math.round(color[2]) - 1];
   UnivSim.timer.unpause();
 };
 
@@ -221,6 +406,85 @@ UnivSim.tick = function() {
 
   var dt = UnivSim.timer.getElapsedTime() / 1000.0;
   var gl = UnivSim.gl;
+
+  // Update UI information.
+  if (UnivSim.pickedStar) {
+    document.getElementById('x0l').innerHTML =
+                                   UnivSim.pickedStar.position[0];
+    document.getElementById('x1l').innerHTML =
+                                   UnivSim.pickedStar.position[1];
+    document.getElementById('x2l').innerHTML =
+                                   UnivSim.pickedStar.position[2];
+    document.getElementById('v0l').innerHTML =
+                                   UnivSim.pickedStar.velocity[0];
+    document.getElementById('v1l').innerHTML =
+                                   UnivSim.pickedStar.velocity[1];
+    document.getElementById('v2l').innerHTML =
+                                   UnivSim.pickedStar.velocity[2];
+    document.getElementById('a0l').innerHTML =
+                                   UnivSim.pickedStar.acceleration[0];
+    document.getElementById('a1l').innerHTML =
+                                   UnivSim.pickedStar.acceleration[1];
+    document.getElementById('a2l').innerHTML =
+                                   UnivSim.pickedStar.acceleration[2];
+    document.getElementById('ml').innerHTML =
+                                   UnivSim.pickedStar.mass;
+    document.getElementById('rl').innerHTML =
+                                   UnivSim.pickedStar.radius;
+  } else {
+    document.getElementById('x0l').innerHTML = '';
+    document.getElementById('x1l').innerHTML = '';
+    document.getElementById('x2l').innerHTML = '';
+    document.getElementById('v0l').innerHTML = '';
+    document.getElementById('v1l').innerHTML = '';
+    document.getElementById('v2l').innerHTML = '';
+    document.getElementById('a0l').innerHTML = '';
+    document.getElementById('a1l').innerHTML = '';
+    document.getElementById('a2l').innerHTML = '';
+    document.getElementById('ml').innerHTML = '';
+    document.getElementById('rl').innerHTML = '';
+  }
+  // Update view matrix according to key pressed.
+  if (UnivSim.keys.w == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(translate(0.0, 0.0, dt * 10),
+                                     UnivSim.camera.viewMatrix);
+  }
+  if (UnivSim.keys.s == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(translate(0.0, 0.0, -dt * 10),
+                                     UnivSim.camera.viewMatrix);
+  }
+  if (UnivSim.keys.a == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(translate(dt * 10, 0.0, 0.0),
+                                     UnivSim.camera.viewMatrix);
+  }
+  if (UnivSim.keys.d == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(translate(-dt * 10, 0.0, 0.0),
+                                     UnivSim.camera.viewMatrix);
+  }
+  if (UnivSim.keys.up == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(rotate(-dt * 30, [1, 0, 0]),
+                                     UnivSim.camera.viewMatrix);
+  }
+  if (UnivSim.keys.down == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(rotate(dt * 30, [1, 0, 0]),
+                                     UnivSim.camera.viewMatrix);
+  }
+  if (UnivSim.keys.left == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(rotate(-dt * 30, [0, 1, 0]),
+                                     UnivSim.camera.viewMatrix);
+  }
+  if (UnivSim.keys.right == true) {
+    console.log('hello');
+    UnivSim.camera.viewMatrix = mult(rotate(dt * 30, [0, 1, 0]),
+                                     UnivSim.camera.viewMatrix);
+  }
 
   // Update sphere parameters.
   var sphere1 = new Object();
@@ -284,6 +548,28 @@ UnivSim.tick = function() {
     }
   }
 
+  // Update the accelerations according to the force on stars.
+  for (var i = 0; i < UnivSim.stars.length; i++) {
+    var starToUpdate = UnivSim.stars[i];
+    starToUpdate.acceleration = new vec3();
+    for (var j = 0; j < UnivSim.stars.length; j++) {
+      var star = UnivSim.stars[j];
+      if (i != j) {
+        var dist2 = (starToUpdate.position[0] - star.position[0]) *
+                    (starToUpdate.position[0] - star.position[0]) +
+                    (starToUpdate.position[1] - star.position[1]) *
+                    (starToUpdate.position[1] - star.position[1]) +
+                    (starToUpdate.position[2] - star.position[2]) *
+                    (starToUpdate.position[2] - star.position[2]);
+        var direction = subtract(star.position, starToUpdate.position);
+        direction = normalize(direction, false);
+        var factor = UnivSim.G * star.mass / dist2;
+        direction = scaleVec(factor, direction);
+        starToUpdate.acceleration = add(starToUpdate.acceleration, direction);
+      }
+    }
+  }
+
   // We assume there is always one light source.
   var lightStar;
   for (var i = 0; i < UnivSim.stars.length; i++) {
@@ -300,6 +586,18 @@ UnivSim.tick = function() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     // Draw background.
+    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgPositionBuffer);
+    gl.vertexAttribPointer(UnivSim.attributes.position,
+                           3,
+                           gl.FLOAT,
+                           false,
+                           0,
+                           0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgNormalBuffer);
+    gl.vertexAttribPointer(UnivSim.attributes.normal, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.bgUVBuffer);
+    gl.vertexAttribPointer(UnivSim.attributes.uv, 2, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, UnivSim.buffers.bgIndexBuffer);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.disable(gl.DEPTH_TEST);
     gl.uniform1i(UnivSim.uniforms.isPicking, 0);
@@ -307,9 +605,25 @@ UnivSim.tick = function() {
     gl.uniform1i(UnivSim.uniforms.sampler, 0);
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, UnivSim.textures[0]);
-    gl.drawArrays(gl.TRIANGLES, UnivSim.geometries.sphere.points.length / 3, 6);
+    gl.drawElements(gl.TRIANGLES,
+                    UnivSim.geometries.background.indices.length,
+                    gl.UNSIGNED_SHORT,
+                    0);
 
     // Draw stars.
+    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.positionBuffer);
+    gl.vertexAttribPointer(UnivSim.attributes.position,
+                           3,
+                           gl.FLOAT,
+                           false,
+                           0,
+                           0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.normalBuffer);
+    gl.vertexAttribPointer(UnivSim.attributes.normal, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, UnivSim.buffers.uvBuffer);
+    gl.vertexAttribPointer(UnivSim.attributes.uv, 2, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, UnivSim.buffers.indexBuffer);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.enable(gl.DEPTH_TEST);
     for (var i = 0; i < UnivSim.stars.length; i++) {
       var star = UnivSim.stars[i];
@@ -352,9 +666,6 @@ UnivSim.tick = function() {
                       gl.UNSIGNED_SHORT,
                       0);
     }
-
-    
-
   }
 
   window.requestAnimFrame(UnivSim.tick);
@@ -367,9 +678,9 @@ UnivSimTest.fillStarsWithExample = function(arr) {
   var star4 = new Object();
 
   star1.position = new vec3(1.0, 1.0, 0.0);
-  star1.velocity = new vec3(-0.1, -0.1, 0.0);
+  star1.velocity = new vec3(0.0, 0.0, 0.0);
   star1.acceleration = new vec3(0.0, 0.0, 0.0);
-  star1.mass = 10.0;
+  star1.mass = 10000.0;
   star1.radius = 0.2;
   star1.texture = 1;
   star1.theta = 0.0;
@@ -383,7 +694,7 @@ UnivSimTest.fillStarsWithExample = function(arr) {
   star1.pickingColor = new vec4(0.0, 0.0, 1 / 255.0, 1.0);
 
   star2.position = new vec3(-1.0, 1.0, 0.0);
-  star2.velocity = new vec3(0.3, -0.2, 0.0);
+  star2.velocity = new vec3(0.0, -0.0, 0.0);
   star2.acceleration = new vec3(0.0, 0.0, 0.0);
   star2.mass = 1.0;
   star2.radius = 0.2;
@@ -554,7 +865,7 @@ UnivSim.loadTextureHelper = function(name) {
                   gl.UNSIGNED_BYTE,
                   myTexture.image);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
