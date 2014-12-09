@@ -1,5 +1,4 @@
 #UnivSim
-===
 ##Team Members
 Xi Han (504136747)  
 Shuyuan Wang (104517904)   
